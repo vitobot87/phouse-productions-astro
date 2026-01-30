@@ -3,6 +3,12 @@ import Layout from '../../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL;
 
+interface ProjectLink {
+  label: string;
+  url: string;
+  type: 'primary' | 'secondary';
+}
+
 interface Project {
   slug: string;
   title: string;
@@ -11,6 +17,9 @@ interface Project {
   longDescription: string;
   tags: string[];
   features: string[];
+  image: string;
+  logo: string;
+  links: ProjectLink[];
 }
 
 const projects: Record<string, Project> = {
@@ -27,6 +36,12 @@ const projects: Record<string, Project> = {
       "Audio and visual cues",
       "Save and reuse timer presets",
       "Perfect for HIIT workouts, Tabata, and more"
+    ],
+    image: "protimer-hero.png",
+    logo: "protimer-logo.png",
+    links: [
+      { label: "Visit Website", url: "https://timer.phouseproductions.com/", type: "primary" },
+      { label: "iOS App", url: "https://apps.apple.com/ca/app/protimer-interval-timer/id1505852514", type: "secondary" },
     ]
   },
   rploop: {
@@ -34,14 +49,19 @@ const projects: Record<string, Project> = {
     title: "RPLOOP",
     status: "active",
     description: "NFT-based generative piano music platform.",
-    longDescription: "RPLOOP is an innovative platform that combines generative music algorithms with blockchain technology. Each piece of piano music is algorithmically composed and minted as a unique NFT, creating one-of-a-kind musical compositions stored permanently on the blockchain.",
+    longDescription: "RPLOOP combines the worlds of generative music and blockchain technology. Each NFT represents a unique, algorithmically generated piano composition that exists nowhere else.",
     tags: ["blockchain", "nft", "music", "web3"],
     features: [
-      "Algorithmically generated piano compositions",
-      "Unique NFT minting for each piece",
-      "Blockchain-verified ownership",
-      "Collectible generative art meets music",
-      "Web3 wallet integration"
+      "Generative piano compositions",
+      "NFT minting and ownership",
+      "Unique musical pieces",
+      "Web3 integration",
+      "Collectible digital music"
+    ],
+    image: "rploop-hero.jpg",
+    logo: "rploop-logo.webp",
+    links: [
+      { label: "View Collection", url: "https://rploop.com/", type: "secondary" },
     ]
   },
   "challenge-tracker": {
@@ -49,14 +69,20 @@ const projects: Record<string, Project> = {
     title: "Challenge Tracker",
     status: "active",
     description: "A fitness goal-tracking application for accountability.",
-    longDescription: "Challenge Tracker helps you stay accountable and motivated on your fitness journey. Set specific goals, track your daily progress, and achieve your fitness challenges with a simple, focused interface designed to keep you on track.",
+    longDescription: "Challenge Tracker makes it easy to set fitness goals and track your progress. Whether you're training for a marathon or just trying to build better habits, this app keeps you accountable.",
     tags: ["fitness", "mobile", "tracking", "goals"],
     features: [
-      "Set and track fitness goals",
-      "Daily progress logging",
-      "Visual progress indicators",
-      "Challenge completion tracking",
-      "Motivational reminders"
+      "Set custom fitness challenges",
+      "Track daily progress",
+      "Visual progress charts",
+      "Achievement milestones",
+      "Motivational reminders",
+      "Social accountability features"
+    ],
+    image: "challenge-tracker-hero.png",
+    logo: "challenge-tracker-logo.png",
+    links: [
+      { label: "Web App", url: "https://ct.phouseproductions.com/", type: "primary" },
     ]
   },
   "easy-strength": {
@@ -73,6 +99,11 @@ const projects: Record<string, Project> = {
       "Preset locations for gym, home, and hotel training",
       "Unit selection toggle between LBS and KG",
       "Workout reporting and data export"
+    ],
+    image: "easy-strength-hero.png",
+    logo: "easy-strength-logo.png",
+    links: [
+      { label: "Try App", url: "https://easy-strength.phouseproductions.com/", type: "primary" },
     ]
   },
   journal: {
@@ -80,15 +111,20 @@ const projects: Record<string, Project> = {
     title: "Journal & Workout Logger",
     status: "active",
     description: "A flexible journaling and workout logging application.",
-    longDescription: "A unified platform that combines daily journaling with comprehensive fitness tracking. Reflect on your day, log your workouts, and maintain a holistic view of your physical and mental well-being in one accessible, web-based application.",
+    longDescription: "A web-based progressive web application designed for users to log daily journal entries and track workout activities in a flexible, integrated format. Combine your daily reflections with fitness tracking in one unified platform.",
     tags: ["journaling", "fitness", "web", "productivity", "pwa"],
     features: [
-      "Daily journaling with rich text support",
-      "Comprehensive workout logging",
-      "Combined wellness tracking",
+      "Dual logging capability for journaling and workout tracking",
+      "Web-based access built as a Next.js application",
       "Progressive Web App (PWA) support",
+      "Flexible format for thoughts, workouts, or both",
       "Cross-device synchronization",
       "Privacy-focused design"
+    ],
+    image: "journal-hero.png",
+    logo: "journal-logo.png",
+    links: [
+      { label: "Open App", url: "https://journal.phouseproductions.com/", type: "primary" },
     ]
   },
   noviluxe: {
@@ -104,28 +140,17 @@ const projects: Record<string, Project> = {
       "Easy-to-use appointment request system",
       "Detailed service showcase for hair artistry and lash extensions",
       "Professional, welcoming presentation"
-    ]
-  },
-  "kb-gen": {
-    slug: "kb-gen",
-    title: "KB Gen",
-    status: "active",
-    description: "A kettlebell workout generator for customized training.",
-    longDescription: "KB Gen creates customized kettlebell training routines tailored to your preferences and goals. Choose from multiple workout styles, focus areas, and equipment options to generate your perfect kettlebell session every time.",
-    tags: ["fitness", "workout-generator", "kettlebell", "web"],
-    features: [
-      "Multiple workout style options",
-      "Focus area selection (strength, conditioning, etc.)",
-      "Equipment customization",
-      "Randomized workout generation",
-      "Print-friendly workout cards",
-      "Progressive difficulty options"
+    ],
+    image: "noviluxe-hero.png",
+    logo: "noviluxe-logo.png",
+    links: [
+      { label: "Visit Website", url: "https://noviluxe.ca/", type: "primary" },
     ]
   }
 };
 
 export function getStaticPaths() {
-  const projectSlugs = ["protimer", "rploop", "challenge-tracker", "easy-strength", "journal", "noviluxe", "kb-gen"];
+  const projectSlugs = ["protimer", "rploop", "challenge-tracker", "easy-strength", "journal", "noviluxe"];
   return projectSlugs.map((slug) => ({
     params: { slug },
   }));
@@ -133,39 +158,19 @@ export function getStaticPaths() {
 
 const { slug } = Astro.params;
 const project = projects[slug as string];
-
-const tagColors: Record<string, string> = {
-  mobile: "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300",
-  productivity: "bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300",
-  fitness: "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300",
-  blockchain: "bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300",
-  nft: "bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300",
-  music: "bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300",
-  web3: "bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300",
-  web: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
-  tracking: "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300",
-  goals: "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300",
-  "strength-training": "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300",
-  journaling: "bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300",
-  pwa: "bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300",
-  beauty: "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300",
-  business: "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300",
-  "workout-generator": "bg-lime-100 dark:bg-lime-900/40 text-lime-700 dark:text-lime-300",
-  kettlebell: "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300",
-};
 ---
 
 <Layout title={`${project.title} | pHouse Productions`} description={project.description}>
   <main class="min-h-screen">
     <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50">
       <div class="max-w-6xl mx-auto px-4">
         <div class="flex items-center justify-between h-16">
           <a href={base} class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">p</div>
-            <span class="font-semibold text-gray-900 dark:text-white">pHouse Productions</span>
+            <img src={`${base}favicon.png`} alt="pHouse" class="w-8 h-8 rounded-lg" />
+            <span class="font-semibold text-[#0a0a0a] dark:text-white">pHouse Productions</span>
           </a>
-          <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle dark mode">
+          <button onclick="toggleTheme()" class="p-2 rounded-lg bg-[#f5f3f7] dark:bg-[#1a1625] hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors" aria-label="Toggle dark mode">
             <span class="dark:hidden text-gray-600">🌙</span>
             <span class="hidden dark:inline text-gray-300">☀️</span>
           </button>
@@ -176,29 +181,75 @@ const tagColors: Record<string, string> = {
     <div class="pt-24 pb-20 px-4">
       <div class="max-w-4xl mx-auto">
         <!-- Back Link -->
-        <a href={`${base}#projects`} class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 mb-8 transition-colors">
+        <a href={`${base}#projects`} class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary mb-8 transition-colors">
           <span>←</span>
           Back to Projects
         </a>
 
+        <!-- Hero Image -->
+        <div class="relative rounded-2xl overflow-hidden mb-12 shadow-2xl">
+          <img 
+            src={`${base}${project.image}`} 
+            alt={project.title}
+            class="w-full h-80 object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          
+          {project.logo && (
+            <div class="absolute bottom-6 left-6 w-20 h-20 bg-white/90 dark:bg-black/80 backdrop-blur-md rounded-xl p-3 shadow-xl">
+              <img 
+                src={`${base}${project.logo}`} 
+                alt={`${project.title} logo`}
+                class="w-full h-full object-contain"
+              />
+            </div>
+          )}
+        </div>
+
         <!-- Project Header -->
         <div class="mb-12">
-          <div class="flex items-center gap-3 mb-4">
-            <h1 class="text-4xl font-bold text-gray-900 dark:text-white">{project.title}</h1>
-            <span class="px-3 py-1 text-sm font-medium bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-full">
+          <div class="flex items-center gap-4 mb-4">
+            <h1 class="text-4xl md:text-5xl font-bold gradient-text">{project.title}</h1>
+            <span class={`text-sm px-4 py-1.5 rounded-full font-semibold ${
+              project.status === 'active' 
+                ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' 
+                : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+            }`}>
               {project.status}
             </span>
           </div>
-          <p class="text-xl text-gray-600 dark:text-gray-400">
+          
+          <p class="text-xl text-gray-600 dark:text-gray-400 mb-6">
             {project.description}
           </p>
-          <div class="flex flex-wrap gap-2 mt-6">
+          
+          <div class="flex flex-wrap gap-2 mb-8">
             {project.tags.map((tag) => (
-              <span class={`px-3 py-1 text-sm font-medium rounded-full ${tagColors[tag] || "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"}`}>
+              <span class="text-sm px-4 py-1.5 rounded-full bg-[#f5f3f7] dark:bg-[#1a1625] text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
                 {tag}
               </span>
             ))}
           </div>
+
+          <!-- Links -->
+          {project.links && project.links.length > 0 && (
+            <div class="flex flex-wrap gap-4">
+              {project.links.map((link) => (
+                <a 
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                    link.type === 'primary'
+                      ? 'bg-primary hover:bg-primary-hover text-white shadow-lg glow-primary'
+                      : 'border-2 border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary'
+                  }`}
+                >
+                  {link.label} ↗
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
         <!-- About -->
@@ -210,11 +261,11 @@ const tagColors: Record<string, string> = {
 
         <!-- Features -->
         <section class="mb-12">
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
+          <h2 class="text-2xl font-bold mb-6">Features</h2>
           <ul class="space-y-4">
             {project.features.map((feature) => (
               <li class="flex items-start gap-3">
-                <span class="mt-1.5 w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0"></span>
+                <span class="mt-2 w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
                 <span class="text-gray-600 dark:text-gray-300">{feature}</span>
               </li>
             ))}
@@ -222,14 +273,14 @@ const tagColors: Record<string, string> = {
         </section>
 
         <!-- CTA -->
-        <section class="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 text-center">
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Interested in this project?</h2>
+        <section class="bg-[#f5f3f7] dark:bg-[#1a1625] rounded-2xl p-8 text-center border border-gray-200 dark:border-gray-700">
+          <h2 class="text-2xl font-bold mb-4">Interested in this project?</h2>
           <p class="text-gray-600 dark:text-gray-400 mb-6">Get in touch to learn more or discuss similar solutions for your needs.</p>
           <a 
             href="https://www.linkedin.com/in/mikecarcasole/" 
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+            class="inline-block px-8 py-4 bg-primary hover:bg-primary-hover text-white rounded-xl font-semibold shadow-lg glow-primary transition-all"
           >
             Connect on LinkedIn
           </a>
@@ -241,10 +292,10 @@ const tagColors: Record<string, string> = {
     <footer class="py-8 px-4 border-t border-gray-100 dark:border-gray-800">
       <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="flex items-center gap-3">
-          <div class="w-6 h-6 bg-emerald-500 rounded flex items-center justify-center text-white font-bold text-xs">p</div>
+          <img src={`${base}favicon.png`} alt="pHouse" class="w-6 h-6 rounded" />
           <span class="text-sm text-gray-600 dark:text-gray-400">pHouse Productions</span>
         </div>
-        <p class="text-sm text-gray-500 dark:text-gray-500">© {new Date().getFullYear()} pHouse Productions. All rights reserved.</p>
+        <p class="text-sm text-gray-500">© {new Date().getFullYear()} pHouse Productions. All rights reserved.</p>
       </div>
     </footer>
   </main>
