@@ -1,0 +1,218 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const projects = [
+  {
+    slug: "protimer",
+    title: "ProTimer",
+    status: "active",
+    description: "An interval timer application designed for workouts and productivity. Track your intervals with precision and customize your timing needs.",
+    tags: ["mobile", "productivity", "fitness"],
+    color: "emerald"
+  },
+  {
+    slug: "rploop",
+    title: "RPLOOP",
+    status: "active",
+    description: "NFT-based generative piano music platform. Unique compositions generated algorithmically and stored as NFTs on the blockchain.",
+    tags: ["blockchain", "nft", "music", "web3"],
+    color: "violet"
+  },
+  {
+    slug: "challenge-tracker",
+    title: "Challenge Tracker",
+    status: "active",
+    description: "A fitness goal-tracking application that helps you stay accountable and motivated. Track your progress, set goals, and achieve your fitness challenges.",
+    tags: ["fitness", "mobile", "tracking", "goals"],
+    color: "orange"
+  },
+  {
+    slug: "easy-strength",
+    title: "Easy Strength",
+    status: "active",
+    description: "A minimalist strength training companion app that simplifies program adherence with flexible exercise substitutions within Pavel Tsatsouline's time-tested protocol framework.",
+    tags: ["fitness", "web", "strength-training", "productivity"],
+    color: "blue"
+  },
+  {
+    slug: "journal",
+    title: "Journal & Workout Logger",
+    status: "active",
+    description: "A flexible journaling and workout logging application that combines daily reflections with fitness tracking in a unified, web-accessible platform.",
+    tags: ["journaling", "fitness", "web", "productivity", "pwa"],
+    color: "amber"
+  },
+  {
+    slug: "noviluxe",
+    title: "Novi Luxe",
+    status: "active",
+    description: "Private hair artistry and custom lash extensions. Premium beauty services in Mississauga, ON.",
+    tags: ["web", "beauty", "business"],
+    color: "rose"
+  },
+  {
+    slug: "kb-gen",
+    title: "KB Gen",
+    status: "active",
+    description: "A kettlebell workout generator that creates customized training routines. Choose from multiple workout styles, focus areas, and equipment options to generate your perfect kettlebell session.",
+    tags: ["fitness", "workout-generator", "kettlebell", "web"],
+    color: "teal"
+  },
+];
+
+const tagColors: Record<string, string> = {
+  mobile: "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300",
+  productivity: "bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300",
+  fitness: "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300",
+  blockchain: "bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300",
+  nft: "bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300",
+  music: "bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300",
+  web3: "bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300",
+  web: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
+  tracking: "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300",
+  goals: "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300",
+  "strength-training": "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300",
+  journaling: "bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300",
+  pwa: "bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300",
+  beauty: "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300",
+  business: "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300",
+  "workout-generator": "bg-lime-100 dark:bg-lime-900/40 text-lime-700 dark:text-lime-300",
+  kettlebell: "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300",
+};
+
+const cardColors: Record<string, string> = {
+  emerald: "hover:border-emerald-500/50 dark:hover:border-emerald-400/50",
+  violet: "hover:border-violet-500/50 dark:hover:border-violet-400/50",
+  orange: "hover:border-orange-500/50 dark:hover:border-orange-400/50",
+  blue: "hover:border-blue-500/50 dark:hover:border-blue-400/50",
+  amber: "hover:border-amber-500/50 dark:hover:border-amber-400/50",
+  rose: "hover:border-rose-500/50 dark:hover:border-rose-400/50",
+  teal: "hover:border-teal-500/50 dark:hover:border-teal-400/50",
+};
+---
+
+<Layout title="pHouse Productions | Web & App Development">
+  <main class="min-h-screen">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+          <a href={base} class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">p</div>
+            <span class="font-semibold text-gray-900 dark:text-white">pHouse Productions</span>
+          </a>
+          <div class="flex items-center gap-4">
+            <nav class="hidden md:flex items-center gap-6">
+              <a href="#projects" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Projects</a>
+              <a href="#contact" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
+            </nav>
+            <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle dark mode">
+              <span class="dark:hidden text-gray-600">🌙</span>
+              <span class="hidden dark:inline text-gray-300">☀️</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="max-w-3xl">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+            Building <span class="text-emerald-500">practical</span> software for real problems
+          </h1>
+          <p class="mt-6 text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+            We specialize in web development, app development, and custom software solutions. With over a decade of experience, we deliver practical, user-focused applications.
+          </p>
+          <div class="mt-10 flex flex-wrap gap-4">
+            <a href="#projects" class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+              View Projects
+              <span>→</span>
+            </a>
+            <a href="#contact" class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white px-6 py-3 rounded-lg font-medium transition-colors">
+              Get in Touch
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 bg-gray-50 dark:bg-gray-900/50">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Featured Projects</h2>
+          <p class="mt-2 text-gray-600 dark:text-gray-400">A selection of our recent work and ongoing projects</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          {projects.map((project) => (
+            <a 
+              href={`${base}projects/${project.slug}/`}
+              class={`group bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 transition-all hover:shadow-lg ${cardColors[project.color]}`}
+            >
+              <div class="flex items-start justify-between mb-4">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors">
+                  {project.title}
+                </h3>
+                <span class="px-2 py-1 text-xs font-medium bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-full">
+                  {project.status}
+                </span>
+              </div>
+              <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                {project.description}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span class={`px-2 py-1 text-xs font-medium rounded-full ${tagColors[tag] || "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"}`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div class="mt-4 text-sm font-medium text-emerald-500 dark:text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                Learn more →
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Let's Work Together</h2>
+          <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">
+            Have a project in mind? We'd love to hear from you and discuss how we can help bring your ideas to life.
+          </p>
+          <div class="mt-8">
+            <a 
+              href="https://www.linkedin.com/in/mikecarcasole/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              Connect on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 border-t border-gray-100 dark:border-gray-800">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-6 h-6 bg-emerald-500 rounded flex items-center justify-center text-white font-bold text-xs">p</div>
+          <span class="text-sm text-gray-600 dark:text-gray-400">pHouse Productions</span>
+        </div>
+        <p class="text-sm text-gray-500 dark:text-gray-500">© {new Date().getFullYear()} pHouse Productions. All rights reserved.</p>
+      </div>
+    </footer>
+  </main>
+</Layout>

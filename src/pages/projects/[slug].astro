@@ -1,0 +1,251 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+interface Project {
+  slug: string;
+  title: string;
+  status: string;
+  description: string;
+  longDescription: string;
+  tags: string[];
+  features: string[];
+}
+
+const projects: Record<string, Project> = {
+  protimer: {
+    slug: "protimer",
+    title: "ProTimer",
+    status: "active",
+    description: "An interval timer application designed for workouts and productivity.",
+    longDescription: "ProTimer is a powerful interval timer application that helps you stay on track during workouts, cooking, or any activity that requires precise timing. With a clean interface and customizable intervals, it's the perfect companion for structured activities.",
+    tags: ["mobile", "productivity", "fitness"],
+    features: [
+      "Customizable interval timers",
+      "Clean, intuitive interface",
+      "Audio and visual cues",
+      "Save and reuse timer presets",
+      "Perfect for HIIT workouts, Tabata, and more"
+    ]
+  },
+  rploop: {
+    slug: "rploop",
+    title: "RPLOOP",
+    status: "active",
+    description: "NFT-based generative piano music platform.",
+    longDescription: "RPLOOP is an innovative platform that combines generative music algorithms with blockchain technology. Each piece of piano music is algorithmically composed and minted as a unique NFT, creating one-of-a-kind musical compositions stored permanently on the blockchain.",
+    tags: ["blockchain", "nft", "music", "web3"],
+    features: [
+      "Algorithmically generated piano compositions",
+      "Unique NFT minting for each piece",
+      "Blockchain-verified ownership",
+      "Collectible generative art meets music",
+      "Web3 wallet integration"
+    ]
+  },
+  "challenge-tracker": {
+    slug: "challenge-tracker",
+    title: "Challenge Tracker",
+    status: "active",
+    description: "A fitness goal-tracking application for accountability.",
+    longDescription: "Challenge Tracker helps you stay accountable and motivated on your fitness journey. Set specific goals, track your daily progress, and achieve your fitness challenges with a simple, focused interface designed to keep you on track.",
+    tags: ["fitness", "mobile", "tracking", "goals"],
+    features: [
+      "Set and track fitness goals",
+      "Daily progress logging",
+      "Visual progress indicators",
+      "Challenge completion tracking",
+      "Motivational reminders"
+    ]
+  },
+  "easy-strength": {
+    slug: "easy-strength",
+    title: "Easy Strength",
+    status: "active",
+    description: "A minimalist strength training companion app.",
+    longDescription: "Easy Strength is a workout tracking application built around Pavel Tsatsouline's strength training methodology. It provides users with a structured daily protocol for systematic strength development, enabling lifters to work around equipment limitations while maintaining program integrity.",
+    tags: ["fitness", "web", "strength-training", "productivity"],
+    features: [
+      "Exercise categories organized into five movement patterns (push, pull, hinge, squat, carry)",
+      "Multiple exercise options within each category",
+      "Set/rep tracking with \"2 sets of 5\" protocol",
+      "Preset locations for gym, home, and hotel training",
+      "Unit selection toggle between LBS and KG",
+      "Workout reporting and data export"
+    ]
+  },
+  journal: {
+    slug: "journal",
+    title: "Journal & Workout Logger",
+    status: "active",
+    description: "A flexible journaling and workout logging application.",
+    longDescription: "A unified platform that combines daily journaling with comprehensive fitness tracking. Reflect on your day, log your workouts, and maintain a holistic view of your physical and mental well-being in one accessible, web-based application.",
+    tags: ["journaling", "fitness", "web", "productivity", "pwa"],
+    features: [
+      "Daily journaling with rich text support",
+      "Comprehensive workout logging",
+      "Combined wellness tracking",
+      "Progressive Web App (PWA) support",
+      "Cross-device synchronization",
+      "Privacy-focused design"
+    ]
+  },
+  noviluxe: {
+    slug: "noviluxe",
+    title: "Novi Luxe",
+    status: "active",
+    description: "Private hair artistry and custom lash extensions.",
+    longDescription: "Novi Luxe is a private hair artistry and custom lash extensions studio located in Mississauga, ON. The website showcases premium beauty services with a clean, elegant design that reflects the luxury experience offered to clients.",
+    tags: ["web", "beauty", "business"],
+    features: [
+      "Modern, elegant web design reflecting the luxury brand",
+      "Mobile responsive across all devices",
+      "Easy-to-use appointment request system",
+      "Detailed service showcase for hair artistry and lash extensions",
+      "Professional, welcoming presentation"
+    ]
+  },
+  "kb-gen": {
+    slug: "kb-gen",
+    title: "KB Gen",
+    status: "active",
+    description: "A kettlebell workout generator for customized training.",
+    longDescription: "KB Gen creates customized kettlebell training routines tailored to your preferences and goals. Choose from multiple workout styles, focus areas, and equipment options to generate your perfect kettlebell session every time.",
+    tags: ["fitness", "workout-generator", "kettlebell", "web"],
+    features: [
+      "Multiple workout style options",
+      "Focus area selection (strength, conditioning, etc.)",
+      "Equipment customization",
+      "Randomized workout generation",
+      "Print-friendly workout cards",
+      "Progressive difficulty options"
+    ]
+  }
+};
+
+export function getStaticPaths() {
+  const projectSlugs = ["protimer", "rploop", "challenge-tracker", "easy-strength", "journal", "noviluxe", "kb-gen"];
+  return projectSlugs.map((slug) => ({
+    params: { slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const project = projects[slug as string];
+
+const tagColors: Record<string, string> = {
+  mobile: "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300",
+  productivity: "bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300",
+  fitness: "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300",
+  blockchain: "bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300",
+  nft: "bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300",
+  music: "bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300",
+  web3: "bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300",
+  web: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
+  tracking: "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300",
+  goals: "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300",
+  "strength-training": "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300",
+  journaling: "bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300",
+  pwa: "bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300",
+  beauty: "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300",
+  business: "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300",
+  "workout-generator": "bg-lime-100 dark:bg-lime-900/40 text-lime-700 dark:text-lime-300",
+  kettlebell: "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300",
+};
+---
+
+<Layout title={`${project.title} | pHouse Productions`} description={project.description}>
+  <main class="min-h-screen">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+          <a href={base} class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">p</div>
+            <span class="font-semibold text-gray-900 dark:text-white">pHouse Productions</span>
+          </a>
+          <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle dark mode">
+            <span class="dark:hidden text-gray-600">🌙</span>
+            <span class="hidden dark:inline text-gray-300">☀️</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="pt-24 pb-20 px-4">
+      <div class="max-w-4xl mx-auto">
+        <!-- Back Link -->
+        <a href={`${base}#projects`} class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 mb-8 transition-colors">
+          <span>←</span>
+          Back to Projects
+        </a>
+
+        <!-- Project Header -->
+        <div class="mb-12">
+          <div class="flex items-center gap-3 mb-4">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white">{project.title}</h1>
+            <span class="px-3 py-1 text-sm font-medium bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-full">
+              {project.status}
+            </span>
+          </div>
+          <p class="text-xl text-gray-600 dark:text-gray-400">
+            {project.description}
+          </p>
+          <div class="flex flex-wrap gap-2 mt-6">
+            {project.tags.map((tag) => (
+              <span class={`px-3 py-1 text-sm font-medium rounded-full ${tagColors[tag] || "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"}`}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <!-- About -->
+        <section class="mb-12">
+          <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            {project.longDescription}
+          </p>
+        </section>
+
+        <!-- Features -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
+          <ul class="space-y-4">
+            {project.features.map((feature) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0"></span>
+                <span class="text-gray-600 dark:text-gray-300">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- CTA -->
+        <section class="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 text-center">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Interested in this project?</h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">Get in touch to learn more or discuss similar solutions for your needs.</p>
+          <a 
+            href="https://www.linkedin.com/in/mikecarcasole/" 
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+          >
+            Connect on LinkedIn
+          </a>
+        </section>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 border-t border-gray-100 dark:border-gray-800">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-6 h-6 bg-emerald-500 rounded flex items-center justify-center text-white font-bold text-xs">p</div>
+          <span class="text-sm text-gray-600 dark:text-gray-400">pHouse Productions</span>
+        </div>
+        <p class="text-sm text-gray-500 dark:text-gray-500">© {new Date().getFullYear()} pHouse Productions. All rights reserved.</p>
+      </div>
+    </footer>
+  </main>
+</Layout>
